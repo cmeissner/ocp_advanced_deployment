@@ -10,3 +10,8 @@
   shell: systemctl restart docker
   when: "'nodes' in group_name"
   tags: verify-docker
+
+- name: Check NFS exports
+  shell: exportfs
+  when: "'nfs' in group_names"
+  tags: verify-nfs

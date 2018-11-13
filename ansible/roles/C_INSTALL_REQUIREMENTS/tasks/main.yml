@@ -1,0 +1,9 @@
+---
+- name:
+  yum:
+    name: "{{packages}}"
+    state: present
+  vars:
+    packages:
+    - atomic-openshift-utils
+    - atomic-openshift-clients

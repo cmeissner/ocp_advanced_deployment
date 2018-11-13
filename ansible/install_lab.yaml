@@ -8,3 +8,8 @@
   hosts: nodes, nfs
   roles:
     - B_PREREQ_CHECKS
+
+- name: Install Req Packages on bastion
+  hosts: localhost
+  roles:
+    - C_INSTALL_REQUIREMENTS
