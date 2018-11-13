@@ -1,4 +1,3 @@
 ---
 - name: Setup GUID environment var for all hosts in lab
   shell: echo "export GUID=$(hostname | cut -d '.' -f2)" >> $HOME/.bash_profile
-
