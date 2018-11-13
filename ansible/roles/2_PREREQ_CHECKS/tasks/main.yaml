@@ -1,0 +1,12 @@
+---
+- name: Check docker installation
+  yum:
+    name: docker
+    state: present
+  when: "'nodes' in group_names"
+  tags: verify-docker
+
+- name: Check docker configuration
+  shell: systemctl restart docker
+  when: "'nodes' in group_name"
+  tags: verify-docker

@@ -1,0 +1,10 @@
+---
+- name: Setup GUID
+  hosts: all
+  roles:
+    - 1_SETUP_GUID
+
+- name: Prerequisite checks
+  hosts: nodes, nfs
+  roles:
+    - 2_PREREQ_CHECKS
