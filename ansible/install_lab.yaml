@@ -24,3 +24,13 @@
 
 - name: run deployer playbook for openshift
   import_playbook: /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
+
+- name: run some post deploy tasks
+  hosts: all,localhost
+  roles:
+    - POST_DEPLOY_TASKS
+
+- name: prepare and run smoke test after cluster deploy
+  hosts: localhost
+  roles:
+    - TEST_DEPLOYMENT
