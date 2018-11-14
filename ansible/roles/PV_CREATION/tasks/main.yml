@@ -28,3 +28,8 @@
   host: localhost
   shell: /root/create_pvs_10gigs.sh
   tags: pv-creation
+
+- name: create pvs in openshift
+  host: localhost
+  shell: cat /root/pvs/* | oc create -f
+  tags: pv-creation
