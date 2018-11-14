@@ -31,5 +31,5 @@
 
 - name: create pvs in openshift
   host: localhost
-  shell: cat /root/pvs/* | /bin/oc create -f -
+  shell: cat /root/pvs/* | oc create -f -
   tags: pv-creation
