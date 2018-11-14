@@ -2,14 +2,14 @@
 - name: Setup GUID
   hosts: all
   roles:
-    - A_SETUP_GUID
+    - SETUP_GUID
 
 - name: Prerequisite checks
   hosts: nodes, nfs
   roles:
-    - B_PREREQ_CHECKS
+    - PREREQ_CHECKS
 
 - name: Install Req Packages on bastion
   hosts: localhost
   roles:
-    - C_INSTALL_REQUIREMENTS
+    - INSTALL_REQUIREMENTS
