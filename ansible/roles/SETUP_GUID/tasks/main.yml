@@ -12,8 +12,8 @@
     mode: 0755
 
 - name: re-read facts
-    setup:
-      filter: ansible_local
+  setup:
+    filter: ansible_local
 
 - lineinfile:
     path: /root/.bash_profile
