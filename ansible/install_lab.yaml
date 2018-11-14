@@ -18,3 +18,9 @@
   hosts: localhost
   roles:
     - CREATE_HOST_FILE
+
+- name: run prerequisites playbook for openshift
+  import_playbook: /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml
+
+- name: run deployer playbook for openshift
+  import_playbook: /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
