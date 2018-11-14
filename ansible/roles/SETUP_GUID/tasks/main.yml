@@ -15,7 +15,8 @@
   setup:
     filter: ansible_local
 
-- lineinfile:
+- name: set guid if not done yet 
+  lineinfile:
     path: /root/.bash_profile
     regexp: '^GUID=.*'
     line: "GUID={{ ansible_local['guid'] }}"
