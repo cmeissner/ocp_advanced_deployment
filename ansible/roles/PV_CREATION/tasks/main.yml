@@ -10,26 +10,26 @@
   tags: pv-creation
 
 - name: create 5gigs pvs
-  host: localhost
   template: src=create_pvs_5gigs.sh.j2 dest=/root/create_pvs_5gigs.sh mode=0770
+  when: "inventory_hostname == 'localhost'"
   tags: pv-creation
 
 - name: create 10gigs pvs
-  host: localhost
   template: src=create_pvs_10gigs.sh.j2 dest=/root/create_pvs_10gigs.sh mode=0770
+  when: "inventory_hostname == 'localhost'"
   tags: pv-creation
 
 - name: run 5gigs script
-  host: localhost
   shell: /root/create_pvs_5gigs.sh
+  when: "inventory_hostname == 'localhost'"
   tags: pv-creation
 
 - name: run 10gigs script
-  host: localhost
   shell: /root/create_pvs_10gigs.sh
+  when: "inventory_hostname == 'localhost'"
   tags: pv-creation
 
 - name: create pvs in openshift
-  host: localhost
   shell: cat /root/pvs/* | oc replace -f -
+  when: "inventory_hostname == 'localhost'"
   tags: pv-creation
