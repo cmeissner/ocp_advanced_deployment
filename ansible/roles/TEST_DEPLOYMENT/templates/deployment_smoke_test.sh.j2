@@ -1,8 +1,23 @@
 #!/bin/bash
 oc new-project smoke-test-nodejs
 oc new-app nodejs-mongo-persistent
-sleep 70
+
+sleep 30
+
+while true
+do
+  if oc get pods | grep -qi -e "nodejs-mongo-persistent-1-build.*Completed"
+  then
+    break
+  elif oc get pods | grep -qi -e "nodejs-mongo-persistent-1-build.*Error"
+  then
+    echo "Build failed"
+    exit 1
+  else
+    sleep 10
+  fi
+done
+
 oc get pod
 oc get route
 curl -i --head http://nodejs-mongo-persistent-smoke-test-nodejs.apps.{{ ansible_local['guid']['guid'] }}.example.opentlc.com
-sleep 30
