@@ -1,3 +1,21 @@
 ---
-- name: Setup GUID environment var for all hosts in lab
-  shell: echo "export GUID=$(hostname | cut -d '.' -f2)" >> $HOME/.bash_profile
+- name: "Create custom fact directory"
+  file:
+    path: "/etc/ansible/facts.d"
+    recurse: yes
+    state: "directory"
+
+- name: "Insert custom fact file"
+  copy:
+    src: files/guid.fact
+    dest: /etc/ansible/facts.d/guid.fact
+    mode: 0755
+
+- name: re-read facts
+    setup:
+      filter: ansible_local
+
+- lineinfile:
+    path: /root/.bash_profile
+    regexp: '^GUID=.*'
+    line: "GUID={{ ansible_local['guid'] }}"
