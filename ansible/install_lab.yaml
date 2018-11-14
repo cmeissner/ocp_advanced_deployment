@@ -34,3 +34,8 @@
   hosts: localhost
   roles:
     - TEST_DEPLOYMENT
+
+- name: create pvs and all depended stuff
+  hosts: nfs,localhost
+  roles:
+    - PV_CREATION

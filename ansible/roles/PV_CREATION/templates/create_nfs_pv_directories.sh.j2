@@ -1,0 +1,9 @@
+#!/bin/bash
+mkdir -p /srv/nfs/user-vols/pv{1..50}
+
+for pvnum in {1..50}; do echo "/srv/nfs/user-vols/pv${pvnum} *(rw,root_squash)" >> openshift-uservols.exports; done
+sudo cp ./openshift-uservols.exports /etc/exports.d/
+chown -R nfsnobody.nfsnobody /srv/nfs
+chmod -R 777 /srv/nfs
+
+exportfs -a
