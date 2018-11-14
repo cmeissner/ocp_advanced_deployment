@@ -18,5 +18,5 @@
 - name: set guid if not done yet 
   lineinfile:
     path: /root/.bash_profile
-    regexp: '^GUID=.*'
-    line: "GUID={{ ansible_local['guid'] }}"
+    regexp: '^export GUID=.*'
+    line: "export GUID={{ ansible_local['guid']['guid'] }}"

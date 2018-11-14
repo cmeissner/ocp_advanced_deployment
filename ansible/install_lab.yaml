@@ -1,6 +1,6 @@
 ---
 - name: Setup GUID
-  hosts: all
+  hosts: all,localhost
   roles:
     - SETUP_GUID
 
