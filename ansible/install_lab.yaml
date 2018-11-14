@@ -13,3 +13,8 @@
   hosts: localhost
   roles:
     - INSTALL_REQUIREMENTS
+
+- name: Write target inventory file
+  hosts: localhost
+  role:
+    - CREATE_HOST_FILE
