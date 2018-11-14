@@ -16,5 +16,5 @@
 
 - name: Write target inventory file
   hosts: localhost
-  role:
+  roles:
     - CREATE_HOST_FILE
