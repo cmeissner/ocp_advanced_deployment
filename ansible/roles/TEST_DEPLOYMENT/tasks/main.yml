@@ -1,7 +1,9 @@
 ---
 - name: create smoke test script file
-  template: src=deployment_smoke_test.sh.j2 dest=/root/deployment_smoke_test.sh
-  mode: 0770
+  template: 
+    src: deployment_smoke_test.sh.j2
+    dest: root/deployment_smoke_test.sh
+    mode: 0770
   tags: smoke-test
 
 - name: run smoke test
