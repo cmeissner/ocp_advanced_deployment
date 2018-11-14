@@ -8,7 +8,7 @@
 
 - name: Check docker configuration
   shell: systemctl restart docker
-  when: "'nodes' in group_name"
+  when: "'nodes' in group_names"
   tags: verify-docker
 
 - name: Check NFS exports
