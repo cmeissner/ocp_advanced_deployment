@@ -1,11 +1,14 @@
 #!/bin/bash
 
+echo "Waiting for jenkins to become ready."
 while true
 do
   if oc get pods -n cicd-dev | grep jenkins | grep -v -e build -e  deploy | grep -qi -e "1/1.*Running"
   then
+    echo "jenkins is running now."
     break
   else
+    echo "jenkins not ready yet. Waiting 10 seconds."
     sleep 10
   fi
 done
