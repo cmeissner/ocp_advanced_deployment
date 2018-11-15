@@ -7,14 +7,16 @@ The given playbook is tested and worked only with OCP version 3.9.x (3.9.41). Yo
 
 To Install the whole environment you need to have complete execution authority and have to become ```root```.
 
+    ```
     $ sudo -i
     # git clone https://github.com/cmeissner/ocp_advanced_deployment.git
     # cd ocp_advanced_deployment
     # ansible-playbook -f 30 ansible/install_lab.yaml | tee -a /root/install_lab.log
+    ```
 
 To quarantee that the installation runs complete you may want to start the ```ansible-playbook``` command inside of ```screen``` or ```tmux```. Please refer documentation of these tools to know how to use it.
 
-##Target Environment
+## Target Environment
 
 The starting point is ```ansible/install_lab.yaml``` inside the git repository. All tasks to setup the PoC are included here.
 
@@ -71,6 +73,7 @@ This playbook script applies to the following host environment:
   Master console is accessable via https://loadbalancer.${GUID}.example.opentlc.com and user *admin* can login with password *r3dh4t1!*
 * Registry has storage attached and working
   run following command to check
+    ```
     # oc get pv | grep -i bound
     etcd-asb-volume                  10G        RWO            Retain           Bound       openshift-ansible-service-broker/etcd                                26m
     logging-volume                   10Gi       RWO            Retain           Bound       logging/logging-es-0                                                 26m
@@ -81,16 +84,20 @@ This playbook script applies to the following host environment:
     pv24                             5Gi        RWO            Recycle          Bound       smoke-test-nodejs/mongodb                                            14m
     pv6                              5Gi        RWO            Recycle          Bound       cicd-dev/jenkins                                                     14m
     registry-volume                  20Gi       RWX            Retain           Bound       default/registry-claim                                               26m
+    ```
 * Router is configured on each infranode
   run following command to check
+    ```
     # oc get pod -n default -o wide
     NAME                       READY     STATUS    RESTARTS   AGE       IP              NODE
     docker-registry-1-v2m7r    1/1       Running   0          28m       10.130.0.3      infranode1.a822.internal
     registry-console-1-9g9kc   1/1       Running   0          27m       10.131.2.3      master1.a822.internal
     router-1-f5g6d             1/1       Running   0          28m       192.199.0.30    infranode1.a822.internal
     router-1-xkhwb             1/1       Running   0          28m       192.199.0.171   infranode2.a822.internal
+    ```
 * PVs of different types are available for users to consume
   run following command to check. The command shows a shriked list of pv's.
+    ```
     # oc get pv | tail -n +2 | sort -k2 -u
     logging-volume                   10Gi       RWO            Retain           Bound       logging/logging-es-0                                                 34m
     metrics-volume                   10Gi       RWO            Retain           Bound       openshift-infra/metrics-cassandra-1                                  34m
@@ -104,6 +111,7 @@ This playbook script applies to the following host environment:
     pv1                              5Gi        RWO            Recycle          Available                                                                        21m
     pv6                              5Gi        RWO            Recycle          Bound       cicd-dev/jenkins                                                     21m
     pv24                             5Gi        RWO            Recycle          Bound       smoke-test-nodejs/mongodb                                            21m
+    ```
 * Ability to deploy a simple app (nodejs-mongo-persistent)
   ```ansible/roles/TEST_DEPLOYMENT/``` does the work here.
 
