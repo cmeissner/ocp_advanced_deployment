@@ -5,7 +5,7 @@ The given playbook is tested and worked only with OCP version 3.9.x (3.9.41). Yo
 
 ## Installation
 
-To Install the whole environment you need to have complete execution authority and have to become ```root```.
+To Install the whole environment you need to have complete execution authority and have to become `root`.
 
     ```
     $ sudo -i
