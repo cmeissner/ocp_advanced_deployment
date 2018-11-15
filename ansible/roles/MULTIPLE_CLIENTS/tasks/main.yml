@@ -1,0 +1,24 @@
+---
+- name: add localhost seed hosts
+  add_host:
+    hostname: localhost
+    groups:
+      - seed-hosts
+    ansible_connection: local
+    ansible_host: localhost
+  when: "inventory_hostname == 'localhost'"
+
+- name: load inventory for client projects
+  include_vars:
+    dir: vars
+    files_matching: seed-hosts.yml
+  when: "inventory_hostname == 'localhost'"
+
+- name: create projects, groups, and users
+  import_role:
+    name: OPENSHIFT-APPLIER
+  when: "inventory_hostname == 'localhost'"
+
+- name: create all users
+  script: addUsers.sh
+  when: "'masters' in group_names"

@@ -1,0 +1,94 @@
+openshift_cluster_content:
+# alpha client
+- object: user
+  content:
+  - name: "create user amy"
+    template: "{{role_path}}/templates/applier/multitenant/user-group-templates/user-request-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/amy-env"
+
+- object: user
+  content:
+  - name: "create user andrew"
+    template: "{{role_path}}/templates/applier/multitenant/user-group-templates/user-request-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/andrew-env"
+
+- object: groups
+  content:
+  - name: "create user groups alpha"
+    template: "{{role_path}}/templates/applier/multitenant/user-group-templates/group-request-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/alpha-env"
+
+- object: project
+  content:
+  - name: "create alpha env project"
+    template: "{{role_path}}/templates/applier/multitenan/project-templates/multitenant-project-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/alpha-env"
+
+- object: app
+  content:
+  - name: "deploy alpha env app"
+    template: "{{role_path}}/templates/applier/deploy-client-projects/templates/sample-app.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/alpha-env"
+
+# beta client
+- object: user
+  content:
+  - name: "create user brian"
+    template: "{{role_path}}/templates/applier/multitenan/user-group-templates/user-request-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/brian-env"
+
+- object: user
+  content:
+  - name: "create user betty"
+    template: "{{role_path}}/templates/applier/multitenan/user-group-templates/user-request-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/betty-env"
+
+- object: groups
+  content:
+  - name: "create groups beta env"
+    template: "{{role_path}}/templates/applier/multitenan/user-group-templates/group-request-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/beta-env"
+
+- object: project
+  content:
+  - name: "create project beta"
+    template: "{{role_path}}/templates/applier/multitenan/project-templates/multitenant-project-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/beta-env"
+
+- object: app
+  content:
+  - name: "deploy beta app"
+    template: "{{role_path}}/templates/applier/deploy-client-projects/templates/sample-app.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/beta-env"
+
+# OMEGA CLIENT
+
+- object: user
+  content:
+  - name: "create user nikola"
+    template: "{{role_path}}/templates/applier/multitenan/user-group-templates/user-request-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/nikola-env"
+
+- object: user
+  content:
+  - name: "create user tesla"
+    template: "{{role_path}}/templates/applier/multitenan/user-group-templates/user-request-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/tesla-env"
+
+- object: groups
+  content:
+  - name: "create groups common env"
+    template: "{{role_path}}/templates/applier/multitenan/user-group-templates/group-request-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/common-env"
+
+- object: project
+  content:
+  - name: "create project common"
+    template: "{{role_path}}/templates/applier/multitenan/project-templates/multitenant-project-template.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/common-env"
+
+- object: app
+  content:
+  - name: "deploy common app"
+    template: "{{role_path}}/templates/applier/deploy-client-projects/templates/sample-app.yaml"
+    params: "{{role_path}}/templates/applier/deploy-client-projects/params/common-env"
