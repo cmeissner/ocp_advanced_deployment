@@ -1,0 +1,24 @@
+#!/bin/bash
+
+readonly PROJECTS=(cicd-devi tasks-dev tasks-test tasks-prod)
+
+# create projects
+for _project in ${PROJECTS[@]}
+do
+  oc new-project $_project
+done
+
+# create service account for jenkins
+oc new-app jenkins-persistent -p ENABLE_OAUTH=true -e JENKINS_PASSWORD=jenkins -n cicd-dev
+
+# manage jenkins permissions
+for _permissions_in_project in ${PROJECTS[@]}
+do
+  oc policy add-role-to-user edit system:serviceaccount:cicd-dev:jenkins -n $_permissions_in_project
+  oc policy add-role-to-group system:image-puller system:serviceaccount:admin -n $_permissions_in_project
+done
+
+for _pipeline_2_projects in ${PROJECTS[@]}
+do
+  oc new-app --template=eap70-basic-s2i --param APPLICATION_NAME=os-tasks --param SOURCE_REPOSITORY_URL=https://github.com/OpenShiftDemos/openshift-tasks.git --param SOURCE_REPOSITORY_REF=master --param CONTEXT_DIR=/ -n $_pipeline_2_projects
+done
