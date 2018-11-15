@@ -18,11 +18,11 @@
   tags: check-role
 
 - name: add admin user to htpasswd
-  hosts: masters
   shell: htpasswd -b /etc/origin/master/htpasswd admin r3dh4t1!
+  when: "'masters' in group_names"
   tags: add-admin
 
 - name: add cluster admin role to admin user
-  hosts: localhost
   shell: oc adm policy add-cluster-role-to-user cluster-admin admin
+  when: "inventory_hostname == 'localhost'"
   tags: add-admin
