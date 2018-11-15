@@ -53,7 +53,7 @@ items:
                  echo "PROD SERVICE CHECK DONE"
 
                  sleep 30
-                 sh 'curl -i -u "redhat:redhat1!" -H "Content-Length: 0" -X POST http://os-tasks-tasks-dev.apps.{{ ansible_local[guid][guid] }}.example.opentlc.com/ws/tasks/task1 | grep Created'
+                 sh 'curl -i -u "redhat:redhat1!" -H "Content-Length: 0" -X POST http://os-tasks-tasks-dev.apps.{{ ansible_local['guid']['guid'] }}.example.opentlc.com/ws/tasks/task1 | grep Created'
           }
 
 kind: List
