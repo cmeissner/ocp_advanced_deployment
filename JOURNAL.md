@@ -3,7 +3,7 @@
 This document describe what have been done and what is to do to install ocp cluster with all given Parts.
 The given playbook is tested and worked only with OCP version 3.9.x (3.9.41). You also need a *OpenShift HA Homework Lab* found at labs.opentlc.com.
 
-## Installation
+## Installation
 
 To Install the whole environment you need to have complete execution authority and have to become `root`.
 
@@ -65,7 +65,7 @@ This playbook script applies to the following host environment:
   node{1..4}.${GUID}.example.opentlc.com
   node{1..4}.${GUID}.internal
 
-## Journal
+## Journal
 
 ### basic requirement
 
@@ -115,7 +115,7 @@ pv24                             5Gi        RWO            Recycle          Boun
 * Ability to deploy a simple app (nodejs-mongo-persistent)
   `ansible/roles/TEST_DEPLOYMENT/` does the work here.
 
-### HA Requirements
+### HA Requirements
 
 * There are three masters working
 * There are three etcd instances working
@@ -146,7 +146,7 @@ pv24                             5Gi        RWO            Recycle          Boun
   work is done by roles:
   `ansible/roles/CICD`
 
-### Multitenancy
+### Multitenancy
 
 * Multiple Clients (customers) created
   * Clients will be named Alpha Corp and Beta Corp (client=alpha, client=beta), and a "client=common" for unspecified customers.
@@ -159,4 +159,3 @@ pv24                             5Gi        RWO            Recycle          Boun
 * Alpha and Beta Corp users are confined to projects, and all new pods are deployed to customer dedicated nodes
   The following roles are responsible for the work:
   `ansible/roles/MULTIPLE_CLIENTS`
-
