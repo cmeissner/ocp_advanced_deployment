@@ -1,10 +1,10 @@
-# OPENSHIFT-APPLIER
+# openshift-applier
 
 Role used to apply OpenShift objects to an existing OpenShift Cluster.
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [OPENSHIFT-APPLIER](#OPENSHIFT-APPLIER)
+- [openshift-applier](#openshift-applier)
 	- [Requirements](#requirements)
 	- [Role Usage](#role-usage)
 		- [Sourcing OpenShift Object Definitions](#sourcing-openshift-object-definitions)
@@ -49,11 +49,13 @@ openshift_cluster_content:
           <key1>: <value1>  
     file: <file source>
     action: <apply|create> # Optional: Defaults to 'apply'
+    no_log: <True|False> # Optional: no_log at content level if functionality desired. Defaults to False
     tags: # Optional: Tags are only needed if `filter_tags` is used
     - tag1
     - tag2
     post_steps: # Optional: post-steps at content level can be added if desired
       - role: <path to an ansible role>
+  no_log: <True|False> # Optional: no_log at object level if functionality desired. Optional: Defaults to False
   post_steps: # Optional: post-steps at object level can be added if desired
     - role: <path to an ansible role>
 - object: <object_type>
@@ -101,11 +103,11 @@ One of the ways to define an OpenShift project using a file or template is to us
 
 ### Privileged Objects
 
-Note that the `OPENSHIFT-APPLIER` runs at the permission level a user has, and hence defining objects requiring elevated privileges also requires the user running the `OPENSHIFT-APPLIER` to have the same level (or higher) of access to the OpenShift cluster.
+Note that the `openshift-applier` runs at the permission level a user has, and hence defining objects requiring elevated privileges also requires the user running the `openshift-applier` to have the same level (or higher) of access to the OpenShift cluster.
 
 ### Object Entries in the Inventory
 
-Objects and entries can be named as you please. In these objects definitions, you source templates that will add any in-project OpenShift objects including buildconfigs, deploymentconfigs, services, routes, etc. (*note:* these are standard OpenShift templates and no limitations is imposed from the `OPENSHIFT-APPLIER` for this content).
+Objects and entries can be named as you please. In these objects definitions, you source templates that will add any in-project OpenShift objects including buildconfigs, deploymentconfigs, services, routes, etc. (*note:* these are standard OpenShift templates and no limitations is imposed from the `openshift-applier` for this content).
 
 You can source as many templates and static files as you like.
 
@@ -169,7 +171,7 @@ Valid `action` values are `apply`, `create`, and `delete`.
 
 ### Filtering content based on tags
 
-The `OPENSHIFT-APPLIER` supports the use of tags in the inventory (see example above) to allow for filtering which content should be processed and not. The `filter_tags` variable/fact takes a comma separated list of tags that will be processed and only content with matching tags will be applied.
+The `openshift-applier` supports the use of tags in the inventory (see example above) to allow for filtering which content should be processed and not. The `filter_tags` variable/fact takes a comma separated list of tags that will be processed and only content with matching tags will be applied.
 
 **_NOTE:_** Entries in the inventory without tags will not be processed when a valid list is supplied with the `filter_tags` option.
 
@@ -178,9 +180,13 @@ filter_tags=tag1,tag2
 
 ```
 
+### Suppressing Log Output
+
+Output can be suppressed either at the `object` or `content` level when there is a desire to suppress secret values from being displayed.
+
 ### Pre/Post steps
 
-The `OPENSHIFT-APPLIER` supports the use of pre and post steps to allow for tasks to be executed before / after content is loaded up in OpenShift. This can be useful for things like:
+The `openshift-applier` supports the use of pre and post steps to allow for tasks to be executed before / after content is loaded up in OpenShift. This can be useful for things like:
  - waiting on a deployment to become ready before proceeding to the next
  - seeding the application with content after deployment
  - applying additional tweaks to the OpenShift objects post deployment (e.g.: labels, env variables, etc.)
@@ -195,7 +201,7 @@ For roles that requires input parameters, the implementation also supports suppl
 
 ### Deprovisioning
 
-The `OPENSHIFT-APPLIER` role also supports global deprovisioning of resources. This can be done either using `provision: false`. Setting `-e provision: false` on a run essentially acts like a big 'undo' button, re-running all files and templates through `oc delete -f <resources>`. This can be useful when you want to do a full cleanup to ensure the integrity of you IaC repo, or for simple cleanup while testing changes.
+The `openshift-applier` role also supports global deprovisioning of resources. This can be done either using `provision: false`. Setting `-e provision: false` on a run essentially acts like a big 'undo' button, re-running all files and templates through `oc delete -f <resources>`. This can be useful when you want to do a full cleanup to ensure the integrity of you IaC repo, or for simple cleanup while testing changes.
 
 ### Dependencies
 
