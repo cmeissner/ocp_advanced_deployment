@@ -1,39 +1,40 @@
 ---
 - name: create pipeline.yaml file
-  hosts: localhost
   template: src=pipeline_template.yaml.j2 dest=/root/pipeline.yaml
+  when: "inventory_hostname == 'localhost'"
   tags: cicd-pipeline
 
 - name: create setup script
-  hosts: localhost
   template: src=setup_cicd_simple.sh.j2 dest=/root/setup_cicd_simple.sh mode=0770
+  when: "inventory_hostname == 'localhost'"
   tags: cicd-pipeline
 
 - name: create readyness check skript
-  hosts: localhost
   template: src=readynessCheck.sh.j2 dest=/root/readynessCheck.sh mode=0770
+  when: "inventory_hostname == 'localhost'"
   tags: cicd-pipeline
 
 - name: setup cicd
-  hosts: localhost
   shell: /root/setup_cicd_simple.sh
+  when: "inventory_hostname == 'localhost'"
   tags: cicd-pipeline
 
 - name: import cicd pipeline definition
-  hosts: localhost
   shell: oc create -f /root/pipeline.yaml -n cicd-dev
+  when: "inventory_hostname == 'localhost'"
   tags: cicd-pipeline
 
 - name: check readyness of jenkins
-  hosts: localhost
   shell: /root/readynessCheck.sh
+  when: "inventory_hostname == 'localhost'"
   tags: cicd-pipeline
 
 - name: start build pipeline
-  hosts: localhost
   shell: oc start-build os-pipeline -n cicd-dev
+  when: "inventory_hostname == 'localhost'"
   tags: cicd-pipeline
 
 - name: add horizontal pod autoscaler
-  hosts: localhost
+  when: "inventory_hostname == 'localhost'"
   shell: oc autoscale dc/os-tasks --min 1 --max 10 --cpu-percent=80 -n tasks-prod
+  tags: cicd-pipeline
