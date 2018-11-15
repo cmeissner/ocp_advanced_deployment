@@ -30,6 +30,6 @@
   tags: pv-creation
 
 - name: create pvs in openshift
-  shell: cat /root/pvs/* | oc replace -f -
+  shell: cat /root/pvs/* | oc apply -f -
   when: "inventory_hostname == 'localhost'"
   tags: pv-creation
