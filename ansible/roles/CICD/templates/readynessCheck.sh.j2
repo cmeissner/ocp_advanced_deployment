@@ -2,7 +2,7 @@
 
 while true
 do
-  if oc get pods -n cicd-dev | grep -v -e build -e  deploy | grep -qi -e "1/1.*Running"
+  if oc get pods -n cicd-dev | grep jenkins | grep -v -e build -e  deploy | grep -qi -e "1/1.*Running"
   then
     break
   else
