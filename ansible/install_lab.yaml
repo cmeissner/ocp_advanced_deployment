@@ -39,3 +39,8 @@
   hosts: nfs,localhost
   roles:
     - PV_CREATION
+
+- name: create cicd pipeline
+  hosts: localhost
+  roles:
+    - CICD
