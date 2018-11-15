@@ -21,7 +21,7 @@
 
 - name: import cicd pipeline definition
   hosts: localhost
-  shell: oc replace -f /root/pipeline.yaml -n cicd-dev
+  shell: oc create -f /root/pipeline.yaml -n cicd-dev
   tags: cicd-pipeline
 
 - name: check readyness of jenkins
