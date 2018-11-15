@@ -20,5 +20,5 @@
     name: OPENSHIFT-APPLIER
 
 - name: create all users
-  hosts: masters
   script: addUsers.sh
+  when: "'masters' in host_groups"
