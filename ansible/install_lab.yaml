@@ -47,5 +47,5 @@
 
 - name: create multitenancy
   hosts: masters,localhost
-  role:
+  roles:
     - MULTIPLE_CLIENTS
