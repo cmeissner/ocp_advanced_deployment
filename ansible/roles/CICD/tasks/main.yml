@@ -34,3 +34,6 @@
   shell: oc start-build os-pipeline -n cicd-dev
   tags: cicd-pipeline
 
+- name: add horizontal pod autoscaler
+  hosts: localhost
+  shell: oc autoscale dc/os-tasks --min 1 --max 10 --cpu-percent=80 -n tasks-prod
