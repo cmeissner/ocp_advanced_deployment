@@ -14,11 +14,11 @@ $ sudo -i
 # ansible-playbook -f 30 ansible/install_lab.yaml | tee -a /root/install_lab.log
 ```
 
-To quarantee that the installation runs complete you may want to start the ```ansible-playbook``` command inside of ```screen``` or ```tmux```. Please refer documentation of these tools to know how to use it.
+To quarantee that the installation runs complete you may want to start the `ansible-playbook` command inside of `screen` or `tmux`. Please refer documentation of these tools to know how to use it.
 
 ## Target Environment
 
-The starting point is ```ansible/install_lab.yaml``` inside the git repository. All tasks to setup the PoC are included here.
+The starting point is `ansible/install_lab.yaml` inside the git repository. All tasks to setup the PoC are included here.
 
 * SETUP_GUID
   takes care of the availability of the environment variable GUID on all lab hosts.
@@ -28,12 +28,12 @@ The starting point is ```ansible/install_lab.yaml``` inside the git repository. 
   installs missing packages which are absolutly required.
 * CREATE_HOST_FILE
   place the final ansible inventory file for the cluster installtion.
-* run ```prerequisites``` playbook from openshift installer
+* run `prerequisites` playbook from openshift installer
   Does all pre requisites work.
-* run ```deploy_cluster``` playboo from openshift installer
+* run `deploy_cluster` playboo from openshift installer
   Install and configure the whole cluster.
 * POST_DEPLOY_TASKS
-  Copy ```kube-config``` in place and runs some basic ```oc``` commands to check the cluster.
+  Copy `kube-config` in place and runs some basic `oc` commands to check the cluster.
   It also add a admin user to the htpasswd files on the master servers.
 * TEST_DEPLOYMENT
   runs an smoke test on the newly installed cluster
@@ -41,7 +41,7 @@ The starting point is ```ansible/install_lab.yaml``` inside the git repository. 
   creates nfs directories and the corresponding persistent volumes.
 * CICD
   installs a jenkins on the cluster and creates CI/CD workflow
-  Configures HPA for ```tasks-prod``` project.
+  Configures HPA for `tasks-prod` project.
 * MULTIPLE_CLIENTSA
   creates a multitanant setup with three projects. Two for each company and one for common other customers.
 
@@ -120,7 +120,7 @@ pv24                             5Gi        RWO            Recycle          Boun
 * There are three masters working
 * There are three etcd instances working
 * There is a load balancer to access the masters called loadbalancer.$GUID.$DOMAIN
-* There is a load balancer/DNS for both infranodes called *.apps.$GUID.$DOMAIN
+* There is a load balancer/DNS for both infranodes called \*.apps.$GUID.$DOMAIN
 * There are at least two infranodes, labeled env=infra
   the requirements are implemented in the following roles
   `ansible/roles/CREATE_HOST_FILE`
@@ -128,13 +128,13 @@ pv24                             5Gi        RWO            Recycle          Boun
 ### Environment Configuration
 
 * NetworkPolicy is configured and working with projects isolated by default
-  is activated via ```os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'``` configuration parameter in inventory.
+  is activated via `os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'` configuration parameter in inventory.
 * Aggregated logging is configured and working
 * Metrics collection is configured and working
 * Router and Registry Pods run on Infranodes
 * Metrics and Logging components run on Infranodes
 * Service Catalog, Template Service Broker, and Ansible Service Broker are all working
-  is done in role ```ansible/roles/CREATE_HOST_FILE``` and corresponding configuration parameters in inventory.
+  is done in role `ansible/roles/CREATE_HOST_FILE` and corresponding configuration parameters in inventory.
 
 ### CICD Workflow
 
@@ -144,21 +144,19 @@ pv24                             5Gi        RWO            Recycle          Boun
 * Use tasks-build as your project for building. Do promotion between projects tasks-dev, tasks-test, and tasks-prod as your project names.
 * HPA called tasks-hpa is configured and working on production deployment of openshift-tasks in project tasks-prod.
   work is done by roles:
-  ```ansible/roles/CICD```
+  `ansible/roles/CICD`
 
 ### Multitenancy
 
 * Multiple Clients (customers) created
-** Clients will be named Alpha Corp and Beta Corp (client=alpha, client=beta), and a "client=common" for unspecified customers.
-** Alpha Corp will have two users, Amy and Andrew
-** Beta Corp will have two users, Brian and Betty
-** Common will be for all other users workloads
+  * Clients will be named Alpha Corp and Beta Corp (client=alpha, client=beta), and a "client=common" for unspecified customers.
+  * Alpha Corp will have two users, Amy and Andrew
+  * Beta Corp will have two users, Brian and Betty
+  * Common will be for all other users workloads
 * Dedicated node for each Client
 * The new project template is modified so that it includes a LimitRange
 * A new user template is used to create a user object with the specific label value (optional)
 * Alpha and Beta Corp users are confined to projects, and all new pods are deployed to customer dedicated nodes
   The following roles are responsible for the work:
-  ```ansible/roles/MULTIPLE_CLIENTS```
-
-
+  `ansible/roles/MULTIPLE_CLIENTS`
 
