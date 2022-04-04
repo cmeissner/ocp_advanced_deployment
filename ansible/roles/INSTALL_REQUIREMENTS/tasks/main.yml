@@ -1,5 +1,5 @@
 ---
-- name:
+- name: "ensure needed openshiftpackages are installed"
   yum:
     name: "{{packages}}"
     state: present
